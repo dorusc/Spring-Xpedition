@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: xpedition
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: doru
+Implementation-Vendor-Id: com.doruleanu
+Build-Jdk: 1.8.0_144
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/xpedition
+Created-By: Maven Integration for Eclipse
+
