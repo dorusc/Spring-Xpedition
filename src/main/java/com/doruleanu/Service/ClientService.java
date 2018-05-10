@@ -18,23 +18,23 @@ import javax.persistence.PersistenceContext;
 public class ClientService implements IClientService {
 
     @Autowired
-    private ClientRepository clientDao;
+    private ClientRepository clientRepo;
     
-    @PersistenceContext
+    @Autowired
     private EntityManager eman;
 
-    @Override
+/*    @Override
     public  Page<Client> listAllByPage(Pageable pageable) {
-    	return clientDao.findAll(pageable);
+    	return clientRepo.findAll(pageable);
 	}
-
+*/
 
 	@Override
     public Client getClientById(Integer id){
     	return eman.find(Client.class, id);
     }
     
-    @SuppressWarnings("unchecked")
+/*    @SuppressWarnings("unchecked")
 	@Override
     public Page<Client> getClientByName(String nume, Pageable pageable){
     	String hql = "FROM Client as cli where cli.nume like :nume order by nume, id";
@@ -42,20 +42,20 @@ public class ClientService implements IClientService {
         Page<Client> pages = new PageImpl<Client>(clienti, pageable, clienti.size());
 		return pages;
     }
-
+*/
     @Override
     public void removeClientById(Integer id) {
-        clientDao.deleteById(id);
+        clientRepo.deleteById(id);
     }
 
     @Override
     public void updateClient(Client client) {
-        clientDao.save(client);
+        clientRepo.save(client);
     }
 
     @Override
     public void insertClientNou(Client client) {
-       clientDao.save(client);
+       clientRepo.save(client);
     }
 
 

@@ -1,22 +1,20 @@
 package com.doruleanu.Service;
 
+import com.doruleanu.Entity.Client;
 import com.doruleanu.Entity.Factura;
 
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 public interface IFacturaService {
 	
-	Page<Factura> listAllByPage(Pageable pageable);
+//	Page<Factura> listAllByPage(Pageable pageable);
 	
     Factura getFacturaById(Long id);
 
     void removeFacturaById(Long id);
 
-    void updateFactura(Factura factura);
+	void updateFactura(Long id, Integer clientid, Factura factura);
 
-    void insertFacturaNoua(Factura factura);
+	void insertFacturaNoua(Integer clientid, Factura factura);
 
 //	Page<Factura> getFacturaByClientId(Integer clientid, Pageable pageable);
 

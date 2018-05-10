@@ -9,9 +9,15 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 
+
 @Repository
 
-public interface FacturaRepository extends PagingAndSortingRepository<Factura, Long> {
-@Query("FROM Factura where clientid = ?1 order by id")
-	Page<Factura> fact(Integer clientid, Pageable pageable);
+	public interface FacturaRepository extends PagingAndSortingRepository<Factura, Long> {
+	
+		@Query("select f FROM Factura f where client.id = ?1 order by id")
+		Page<Factura> factura(Integer clientid, Pageable pageable);
+		
+		
+		Page<Factura> findAll(Pageable pageable);
+
 }

@@ -1,6 +1,9 @@
 package com.doruleanu.Controller;
 
 import com.doruleanu.Entity.Client;
+import com.doruleanu.Entity.Factura;
+import com.doruleanu.Repository.ClientRepository;
+import com.doruleanu.Repository.FacturaRepository;
 import com.doruleanu.Service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +21,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/clienti")
 public class ClientController {
 
+	@Autowired
+    private ClientRepository clientRepo;
+	
     @Autowired
     private IClientService clientService;
 
     @GetMapping
-    public Page<Client> list( Pageable pageable){
-		Page<Client> clienti = clientService.listAllByPage(pageable);
-		return clienti;
+    public Page<Client> list(Pageable pageable){
+    	return clientRepo.findAll(pageable);
 	} 
 
     
@@ -37,9 +42,10 @@ public class ClientController {
  
     @GetMapping(value = "/getbyname/{nume}")
     public Page<Client> getClientByName(@PathVariable("nume") String nume, Pageable pageable){
-    	Page<Client> clienti = clientService.getClientByName(nume, pageable);
-        return clienti;
+    	return clientRepo.client(nume, pageable);
+      
     }
+       
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void>  deleteClientById(@PathVariable("id") Integer id){

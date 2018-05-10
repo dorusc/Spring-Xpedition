@@ -28,7 +28,6 @@ public class Factura {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false,  referencedColumnName = "id")
-    // @RestResource(path = "factClienti", rel = "client")
     @JsonIgnore
     private Client client;
     
