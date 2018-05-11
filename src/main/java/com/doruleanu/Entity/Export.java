@@ -19,6 +19,7 @@ public class Export  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @JsonIgnore
     private Long id;
     
     @ManyToOne(fetch = FetchType.LAZY)

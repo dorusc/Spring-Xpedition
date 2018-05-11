@@ -1,7 +1,10 @@
 package com.doruleanu.Controller;
 
 import com.doruleanu.Entity.Product;
+import com.doruleanu.Repository.ProductRepository;
 import com.doruleanu.Service.IProductService;
+
+import io.swagger.annotations.Api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,18 +14,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@Api("product")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
+	@Autowired
+    private ProductRepository productRepo;
+	
     @Autowired
     IProductService productService;
 
     @GetMapping
     public Page<Product> list( Pageable pageable){
-		Page<Product> Products = productService.listAllByPage(pageable);
-		return Products;
+		return productRepo.findAll(pageable);
 	} 
 
     @GetMapping(value = "/getbyid/{id}")
@@ -33,14 +38,12 @@ public class ProductController {
     
     @GetMapping(value = "/getbycod/{prodid}")
     public Page<Product> getProductByCod(@PathVariable("prodid") String prodid, Pageable pageable){
-    	Page<Product> produse = productService.getProductByCod(prodid, pageable);
-        return produse;
+    	return productRepo.product1(prodid, pageable);
     }
     
     @GetMapping(value = "/getbyname/{name}")
     public Page<Product> getProductByName(@PathVariable("name") String name, Pageable pageable){
-    	Page<Product> produse = productService.getProductByName(name, pageable);
-        return produse;
+    	return productRepo.product2(name, pageable);
     }    
 
     @DeleteMapping(value = "/delete/{id}")

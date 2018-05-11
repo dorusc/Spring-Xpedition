@@ -1,10 +1,11 @@
 package com.doruleanu.Controller;
 
 import com.doruleanu.Entity.Client;
-import com.doruleanu.Entity.Factura;
 import com.doruleanu.Repository.ClientRepository;
-import com.doruleanu.Repository.FacturaRepository;
 import com.doruleanu.Service.IClientService;
+
+import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 // import java.util.Collections;
 
-
+@Api("client")
 
 @RestController
 @RequestMapping("/clienti")

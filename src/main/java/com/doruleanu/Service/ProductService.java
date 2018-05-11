@@ -22,12 +22,13 @@ public class ProductService implements IProductService {
     @PersistenceContext
     private EntityManager eman;
 
-    @Override
+/*    @Override
     public  Page<Product> listAllByPage(Pageable pageable) {
     	return ProductDao.findAll(pageable);
 	}
-
-    @SuppressWarnings("unchecked")
+*/
+    
+    /*    @SuppressWarnings("unchecked")
 	@Override
     public Page<Product> getProductByCod(String prodid, Pageable pageable){
     	String hql = "FROM Product as cat where cat.prodid like :prodid order by prodid";
@@ -36,8 +37,8 @@ public class ProductService implements IProductService {
         //Page<Product> pages = new PageImpl<Product>(produse, pageable, produse.size());
 		return pages;
     }
-    
-    @SuppressWarnings("unchecked")
+*/    
+/*    @SuppressWarnings("unchecked")
 	@Override
     public Page<Product> getProductByName(String name, Pageable pageable){
     	String hql = "FROM Product as cat where cat.denumire like :denumire order by denumire";
@@ -45,6 +46,7 @@ public class ProductService implements IProductService {
         Page<Product> pages = new PageImpl<Product>(produse, pageable, produse.size());
 		return pages;
     }
+ */
     
 	@Override
     public Product getProductById(Long id) {

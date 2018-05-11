@@ -4,14 +4,12 @@ package com.doruleanu.Service;
 import com.doruleanu.Entity.Client;
 import com.doruleanu.Repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 
 
 @Service

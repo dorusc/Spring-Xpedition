@@ -1,7 +1,11 @@
 package com.doruleanu.Controller;
 
 import com.doruleanu.Entity.Export;
+import com.doruleanu.Repository.ExportRepository;
 import com.doruleanu.Service.IExportService;
+
+import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,19 +15,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
+@Api("export")
 @RestController
 @RequestMapping("/export")
 public class ExportController {
 
-    @Autowired
+	@Autowired
+    private ExportRepository exportRepo;
+	
+	@Autowired
     private IExportService exportService;
 
-    @GetMapping
-    public Page<Export> list( Pageable pageable){
-		Page<Export> exporturi = exportService.listAllByPage(pageable);
-		return exporturi;
-	} 
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Export> getExportById(@PathVariable("id") Long id){
@@ -33,31 +35,37 @@ public class ExportController {
        
     @GetMapping (value = "pefactura/{factid}")
     public Page<Export> getAllExportPefactura(@PathVariable("factid") Long factid, Pageable pageable){
-        Page<Export> list =  exportService.findAllByFactura(factid, pageable);
-        return list;
+        return  exportRepo.findAllByFactura(factid, pageable);
     }
     
-    @GetMapping (value = "peprodus/{id_pr}")
+    @GetMapping (value = "peproduslafacturi/{id_pr}")
     public Page<Export> getAllExportPeproduct(@PathVariable("id_pr") Long id_pr, Pageable pageable){
-        Page<Export> list =  exportService.findAllByProduct(id_pr, pageable);
-        return list;
+        return  exportRepo.findAllByProduct(id_pr, pageable);
     }
    
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void>  removeExportById(@PathVariable("id") Long id){
+    @DeleteMapping(value = "delete/{id}")
+    public ResponseEntity<Void>  deleteExportById(@PathVariable("id") Long id){
         exportService.deleteExportById(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Export> updateExport(@RequestBody Export factura) {
-        exportService.updateExport(factura);
-        return new ResponseEntity<Export>(factura, HttpStatus.OK);
+    @PutMapping(value = "/{id}/product/{idprod}/factura/{idfact}}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Export> updateExport(@RequestBody Export export,
+    		@PathVariable("id") Long id,
+    		@PathVariable("idprod") Long idprod,
+    		@PathVariable("idfact") Long idfact
+    		) {
+        exportService.updateExport(id, idprod, idfact, export);
+        return new ResponseEntity<Export>(export, HttpStatus.OK);
     }
 
-    @PostMapping(value="/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Export> insertExportNou(@RequestBody Export expfactura){
-        exportService.insertExportNou(expfactura);
+    @PostMapping(value="/add/{idfact}/{idprod}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Export> insertExportNou(@RequestBody Export expfactura,
+    		@PathVariable("idfact") Long idfact,
+    		@PathVariable("idprod") Long idprod
+    		){
+    	
+        exportService.insertExportNou(idfact, idprod, expfactura);
         return new ResponseEntity<Export>(expfactura, HttpStatus.CREATED);
     }
 }

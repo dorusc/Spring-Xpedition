@@ -5,6 +5,8 @@ import com.doruleanu.Entity.Factura;
 import com.doruleanu.Repository.FacturaRepository;
 import com.doruleanu.Service.IFacturaService;
 
+import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@Api("factura")
 @RestController
 @RequestMapping("/facturi")
 public class FacturaController {
