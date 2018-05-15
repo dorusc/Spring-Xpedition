@@ -1,2 +1,2 @@
 # Spring-Xpedition
-Sample Spring Boot Invoicing System
+Simple Spring Boot Invoicing System
