@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +34,15 @@ public class ExportController {
     }
        
     @GetMapping (value = "pefactura/{factid}")
-    public Page<Export> getAllExportPefactura(@PathVariable("factid") Long factid, Pageable pageable){
-        return  exportRepo.findAllByFactura(factid, pageable);
+    public Page<Export> getAllExportPefactura(@PathVariable("factid") Long factid, int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+        return  exportRepo.findAllByFactura(factid, pageRequest);
     }
     
     @GetMapping (value = "peproduslafacturi/{id_pr}")
-    public Page<Export> getAllExportPeproduct(@PathVariable("id_pr") Long id_pr, Pageable pageable){
-        return  exportRepo.findAllByProduct(id_pr, pageable);
+    public Page<Export> getAllExportPeproduct(@PathVariable("id_pr") Long id_pr, int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+        return  exportRepo.findAllByProduct(id_pr, pageRequest);
     }
    
     @DeleteMapping(value = "delete/{id}")

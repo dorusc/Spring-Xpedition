@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +29,9 @@ public class ClientController {
     private IClientService clientService;
 
     @GetMapping
-    public Page<Client> list(Pageable pageable){
-    	return clientRepo.findAll(pageable);
+    public Page<Client> list(int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+    	return clientRepo.findAll(pageRequest);
 	} 
 
     
@@ -38,12 +39,12 @@ public class ClientController {
     public ResponseEntity<Client> getClientById(@PathVariable("id") Integer id){
     	Client client = clientService.getClientById(id);
         return new ResponseEntity<Client>(client, HttpStatus.OK);
-        //return new ResponseEntity<List<Client>>(Collections.singletonList(clienti), HttpStatus.OK);
     }
  
     @GetMapping(value = "/getbyname/{nume}")
-    public Page<Client> getClientByName(@PathVariable("nume") String nume, Pageable pageable){
-    	return clientRepo.client(nume, pageable);
+    public Page<Client> getClientByName(@PathVariable("nume") String nume, int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+    	return clientRepo.client(nume, pageRequest);
       
     }
        

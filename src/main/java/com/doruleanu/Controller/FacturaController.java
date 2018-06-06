@@ -1,6 +1,5 @@
 package com.doruleanu.Controller;
 
-import com.doruleanu.Entity.Client;
 import com.doruleanu.Entity.Factura;
 import com.doruleanu.Repository.FacturaRepository;
 import com.doruleanu.Service.IFacturaService;
@@ -9,7 +8,7 @@ import io.swagger.annotations.Api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,9 @@ public class FacturaController {
     
 // ok
     @GetMapping
-    public Page<Factura> list( Pageable pageable){
-		return facturaRepo.findAll(pageable);
+    public Page<Factura> list( int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+		return facturaRepo.findAll(pageRequest);
 	} 
     
 // ok
@@ -40,8 +40,9 @@ public class FacturaController {
 
 // ok
    @GetMapping(value = "/getbyclientid/{clientid}")
-   public Page<Factura> getFacturaByClientId(@PathVariable("clientid") Integer clientid, Pageable pageable){
-       return facturaRepo.factura(clientid, pageable);
+   public Page<Factura> getFacturaByClientId(@PathVariable("clientid") Integer clientid, int page, int size){
+	   PageRequest pageRequest = PageRequest.of(page, size);
+       return facturaRepo.factura(clientid, pageRequest);
    }
 
 // ok

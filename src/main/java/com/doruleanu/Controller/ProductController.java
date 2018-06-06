@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,9 @@ public class ProductController {
     IProductService productService;
 
     @GetMapping
-    public Page<Product> list( Pageable pageable){
-		return productRepo.findAll(pageable);
+    public Page<Product> list( int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+		return productRepo.findAll(pageRequest);
 	} 
 
     @GetMapping(value = "/getbyid/{id}")
@@ -37,13 +38,15 @@ public class ProductController {
     }
     
     @GetMapping(value = "/getbycod/{prodid}")
-    public Page<Product> getProductByCod(@PathVariable("prodid") String prodid, Pageable pageable){
-    	return productRepo.product1(prodid, pageable);
+    public Page<Product> getProductByCod(@PathVariable("prodid") String prodid, int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+    	return productRepo.product1(prodid, pageRequest);
     }
     
     @GetMapping(value = "/getbyname/{name}")
-    public Page<Product> getProductByName(@PathVariable("name") String name, Pageable pageable){
-    	return productRepo.product2(name, pageable);
+    public Page<Product> getProductByName(@PathVariable("name") String name, int page, int size){
+    	PageRequest pageRequest = PageRequest.of(page, size);
+    	return productRepo.product2(name, pageRequest);
     }    
 
     @DeleteMapping(value = "/delete/{id}")
