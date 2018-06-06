@@ -1,10 +1,7 @@
 package com.doruleanu.Service;
 
 import com.doruleanu.Entity.Product;
-import org.springframework.data.domain.Pageable;
 
-
-import org.springframework.data.domain.Page;
 
 public interface IProductService {
 	
